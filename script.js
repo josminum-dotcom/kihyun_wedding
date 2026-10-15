@@ -188,7 +188,7 @@
     }
 
     const venue = $('#hero-venue');
-    if (venue) venue.textContent = w.venue;
+    if (venue) venue.textContent = `${w.venue} ${w.hall}`.trim();
   }
 
   /* ── Countdown ── */
@@ -247,7 +247,7 @@
       };
 
       parents.innerHTML =
-        line(g, '아들') + '<span class="parent-dot">&amp;</span>' + line(b, '딸');
+        line(g, g.relation || '아들') + '<span class="parent-dot">&amp;</span>' + line(b, b.relation || '딸');
     }
   }
 
@@ -329,6 +329,31 @@
     if (title) title.textContent = CONFIG.story.title;
     if (text) text.textContent = CONFIG.story.content;
     if (!container) return;
+
+    // 사진이 딱 2장이면 신랑·신부 독사진으로 보고 지그재그 소개(글 | 사진, 사진 | 글)로 놓는다
+    if (storyImages.length === 2) {
+      const profile = (p, role, child, src) => {
+        const parents = [[p.father, p.fatherDeceased], [p.mother, p.motherDeceased]]
+          .filter(([n]) => n)
+          .map(([n, dec]) => (dec ? `<span class="deceased">${esc(n)}</span>` : esc(n)))
+          .join('&middot;');
+        return `
+        <div class="profile">
+          <div class="profile__info">
+            <p class="profile__name"><span class="profile__role">${role}</span> ${esc(p.fullName)}</p>
+            ${parents ? `<p class="profile__parents">${parents}의 ${child}</p>` : ''}
+          </div>
+          <div class="story__img-card anim-scale-target">
+            <img src="${src}" alt="${role} ${esc(p.fullName)}" loading="lazy" decoding="async" />
+          </div>
+        </div>`;
+      };
+      container.classList.add('story__images--profiles');
+      container.innerHTML =
+        profile(CONFIG.groom, '신랑', CONFIG.groom.relation || '아들', storyImages[0]) +
+        profile(CONFIG.bride, '신부', CONFIG.bride.relation || '딸', storyImages[1]);
+      return;
+    }
 
     container.innerHTML = storyImages
       .map(
@@ -536,11 +561,12 @@
       const copyBtn = e.target.closest('.account-item__copy');
       if (copyBtn) {
         const account = copyBtn.dataset.account;
-        copyToClipboard(account, '계좌번호가 복사되었습니다');
+        copyToClipboard(account, '계좌번호가 복사되었습니다. 은행 앱에 붙여 넣으세요');
       }
     });
   }
 
+  // 복사가 낯선 분도 보고 옮겨 적을 수 있게 번호를 보여 주고, 복사는 은행 앱이 알아보는 '은행 숫자' 꼴로 한다
   function renderAccounts(accounts) {
     return accounts
       .map(
@@ -550,10 +576,10 @@
           <p class="account-item__role">${esc(acc.role)}</p>
           <p class="account-item__detail">
             <span class="account-item__name">${esc(acc.name)}</span>
-            ${esc(acc.bank)} ${esc(acc.number)}
+            <span class="account-item__number">${esc(acc.bank)} <span class="nowrap">${esc(acc.number)}</span></span>
           </p>
         </div>
-        <button class="account-item__copy" data-account="${esc(acc.bank)} ${esc(acc.number)} ${esc(acc.name)}">복사</button>
+        <button class="account-item__copy" data-account="${esc(acc.bank)} ${esc(acc.number.replace(/-/g, ''))}" aria-label="${esc(acc.name)} 계좌번호 복사">복사</button>
       </div>
     `
       )

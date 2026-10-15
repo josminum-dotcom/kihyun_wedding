@@ -103,7 +103,7 @@ button {
   .btn--rose:hover { background: #874a56; border-color: #874a56; }
   .btn--outline:hover { background: var(--pink-light); }
   .btn--link:hover { background: var(--ivory-dark); }
-  .account-item__copy:hover { background: var(--rose-dark); color: var(--white); }
+  .account-item__copy:hover { background: #874a56; border-color: #874a56; }
   .accordion__toggle:hover { background: var(--pink-light); }
   .gallery__item:hover { transform: scale(1.03); }
   .gallery__item:hover img { transform: scale(1.05); }
@@ -648,7 +648,8 @@ button {
   line-height: 1;
 }
 
-.greeting__parents .deceased::before {
+.greeting__parents .deceased::before,
+.profile__parents .deceased::before {
   content: '故';
   font-size: 0.8em;
   margin-right: 3px;
@@ -803,6 +804,40 @@ button {
   object-fit: cover;
 }
 
+/* 신랑·신부 소개: 글 | 사진, 다음 줄은 사진 | 글 */
+.story__images.story__images--profiles { gap: 56px; padding: 0 16px; }
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.profile:nth-child(even) { flex-direction: row-reverse; }
+.profile__info,
+.profile .story__img-card { flex: 1; min-width: 0; }
+.profile .story__img-card img { aspect-ratio: 5 / 6; }
+.profile__name {
+  font-size: 1.3rem;
+  color: var(--text);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--text);
+  margin-bottom: 12px;
+  text-align: left;
+}
+.profile__role { font-size: 1rem; margin-right: 4px; }
+.profile:nth-child(odd) .profile__role { color: #6f8fa8; }
+.profile:nth-child(even) .profile__role { color: var(--rose); }
+.profile__parents {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-light);
+  text-align: left;
+  word-break: keep-all;
+}
+@media (min-width: 640px) {
+  .story__images.story__images--profiles { flex-direction: column; max-width: 480px; }
+  .profile .story__img-card img { aspect-ratio: 5 / 6; }
+}
+
 .story__img-caption {
   padding: 14px 16px;
   font-size: 0.85rem;
@@ -950,12 +985,18 @@ button {
 .account-item__detail { font-size: 0.85rem; color: var(--text); }
 .account-item__name { font-weight: 400; margin-right: 4px; }
 
+.account-item__number { display: block; margin-top: 4px; font-size: 1rem; color: var(--text); letter-spacing: 0.01em; word-break: keep-all; }
+
+.account-item__number .nowrap { white-space: nowrap; }
+
 .account-item__copy {
   padding: 8px 16px;
   font-size: 0.78rem;
-  border: 1px solid var(--rose-light);
+  border: 1px solid var(--rose-dark);
   border-radius: 50px;
-  color: var(--rose-dark);
+  background: var(--rose-dark);
+  color: var(--white);
+  font-weight: 500;
   transition: all 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
@@ -996,6 +1037,12 @@ button {
   justify-content: center;
   box-shadow: var(--shadow-soft);
 }
+
+/* 지도 버튼은 카톡 공유 버튼과 같은 모양(굵기·그림자·아이콘)에 각 서비스 색만 다르다 */
+.btn--map-kakao,
+.btn--map-naver { font-weight: 500; justify-content: center; box-shadow: var(--shadow-soft); }
+.btn--map-kakao { background: #FEE500; color: #191919; border: 1px solid #FEE500; }
+.btn--map-naver { background: #03C75A; color: #fff; border: 1px solid #03C75A; }
 
 .btn--link {
   background: var(--white);
