@@ -603,7 +603,7 @@
           content: {
             title: CONFIG.meta.title,
             description: CONFIG.meta.description,
-            imageUrl: url + 'images/og/1.jpg',
+            imageUrl: url + 'images/og/1.jpg?v=' + (CONFIG.ogVersion || ''),
             imageWidth: 800,
             imageHeight: 400,
             link: { mobileWebUrl: url, webUrl: url },
