@@ -96,7 +96,7 @@ const CONFIG = {
   },
   "musicCredit": "",
   "siteUrl": "https://josminum-dotcom.github.io/kihyun_wedding/",
-  "ogVersion": "202610152003",
+  "ogVersion": "202610152024",
   "shareImageSize": [
     600,
     800
