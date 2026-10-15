@@ -584,7 +584,10 @@
   }
 
   function initShare() {
-    const url = (CONFIG.siteUrl || window.location.href).split('#')[0];
+    const base = (CONFIG.siteUrl || window.location.href).split(/[?#]/)[0];
+    // 보내는 주소에 올린 버전 번호를 붙인다. 내용을 고치면 번호가 바뀌어
+    // 카톡 미리보기와 받는 사람 폰의 캐시가 예전 내용을 보여 주지 않는다
+    const url = CONFIG.ogVersion ? `${base}?v=${CONFIG.ogVersion}` : base;
     const text = `${CONFIG.meta.title}\n${CONFIG.meta.description}\n${url}`;
 
     // 키가 없거나 SDK 를 못 불러오면 폰 공유창, 그것도 없으면 주소 복사
@@ -603,7 +606,7 @@
           content: {
             title: CONFIG.meta.title,
             description: CONFIG.meta.description,
-            imageUrl: url + 'images/og/share.jpg?v=' + (CONFIG.ogVersion || ''),
+            imageUrl: base + 'images/og/share.jpg?v=' + (CONFIG.ogVersion || ''),
             imageWidth: 800,
             imageHeight: 800,
             link: { mobileWebUrl: url, webUrl: url },

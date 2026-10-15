@@ -70,6 +70,6 @@ const CONFIG = {
   },
   "musicCredit": "",
   "siteUrl": "https://josminum-dotcom.github.io/kihyun_wedding/",
-  "ogVersion": "202610151200",
+  "ogVersion": "202610151205",
   "kakaoKey": "6a196fe64b45a5cddd7ce320d6d2cf83"
 };
