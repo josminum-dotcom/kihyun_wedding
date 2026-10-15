@@ -603,9 +603,9 @@
           content: {
             title: CONFIG.meta.title,
             description: CONFIG.meta.description,
-            imageUrl: url + 'images/og/1.jpg?v=' + (CONFIG.ogVersion || ''),
+            imageUrl: url + 'images/og/share.jpg?v=' + (CONFIG.ogVersion || ''),
             imageWidth: 800,
-            imageHeight: 400,
+            imageHeight: 800,
             link: { mobileWebUrl: url, webUrl: url },
           },
           buttons: [{ title: '청첩장 보기', link: { mobileWebUrl: url, webUrl: url } }],
