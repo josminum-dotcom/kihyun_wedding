@@ -326,32 +326,27 @@
       hide($('#story'));
       return;
     }
-    if (title) title.textContent = CONFIG.story.title;
-    if (text) text.textContent = CONFIG.story.content;
+    // 제목·글이 비어 있으면 그 칸은 숨긴다 (빈 줄이 남지 않게)
+    if (title) CONFIG.story.title ? (title.textContent = CONFIG.story.title) : hide(title);
+    if (text) CONFIG.story.content ? (text.textContent = CONFIG.story.content) : hide(text);
+    if (!CONFIG.story.title && !CONFIG.story.content) hide($('#story .section__inner'));
     if (!container) return;
 
     // 사진이 딱 2장이면 신랑·신부 독사진으로 보고 지그재그 소개(글 | 사진, 사진 | 글)로 놓는다
     if (storyImages.length === 2) {
-      const profile = (p, role, child, src) => {
-        const parents = [[p.father, p.fatherDeceased], [p.mother, p.motherDeceased]]
-          .filter(([n]) => n)
-          .map(([n, dec]) => (dec ? `<span class="deceased">${esc(n)}</span>` : esc(n)))
-          .join('&middot;');
-        return `
+      const profile = (p, role, src) => `
         <div class="profile">
           <div class="profile__info">
             <p class="profile__name"><span class="profile__role">${role}</span> ${esc(p.fullName)}</p>
-            ${parents ? `<p class="profile__parents">${parents}의 ${child}</p>` : ''}
           </div>
           <div class="story__img-card anim-scale-target">
             <img src="${src}" alt="${role} ${esc(p.fullName)}" loading="lazy" decoding="async" />
           </div>
         </div>`;
-      };
       container.classList.add('story__images--profiles');
       container.innerHTML =
-        profile(CONFIG.groom, '신랑', CONFIG.groom.relation || '아들', storyImages[0]) +
-        profile(CONFIG.bride, '신부', CONFIG.bride.relation || '딸', storyImages[1]);
+        profile(CONFIG.groom, '신랑', storyImages[0]) +
+        profile(CONFIG.bride, '신부', storyImages[1]);
       return;
     }
 

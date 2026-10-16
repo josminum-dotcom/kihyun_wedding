@@ -38,7 +38,7 @@ const CONFIG = {
     "content": "서로에게 가장 편안한 사람이 되어\r\n기쁜 날에는 웃음을 나누고\r\n흔들리는 순간에는 손을 잡아주며\r\n한 걸음씩 함께 나아가려 합니다.\r\n\r\n부부라는 이름으로 시작하는 이 날,\r\n저희의 새로운 시작을\r\n따뜻한 마음으로 축복해 주시면\r\n감사하겠습니다."
   },
   "story": {
-    "title": "우리의 이야기",
+    "title": "",
     "content": ""
   },
   "accounts": {
@@ -90,13 +90,13 @@ const CONFIG = {
   "images": {
     "hero": 1,
     "story": 2,
-    "gallery": 17,
+    "gallery": 18,
     "location": 1,
     "og": 1
   },
   "musicCredit": "",
   "siteUrl": "https://josminum-dotcom.github.io/kihyun_wedding/",
-  "ogVersion": "202610152024",
+  "ogVersion": "202610161053",
   "shareImageSize": [
     600,
     800
